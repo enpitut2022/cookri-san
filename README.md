@@ -22,3 +22,25 @@
 - Keisuke
 - なおと
 - ギルド
+
+
+## 実行手順
+1. mainブランチをpullする
+```
+git pull origin main
+```
+
+2. ライブラリをインストールする
+```
+python -m pip install requirements.txt
+```
+
+3. uviconでfastapiを実行する
+```
+uvicorn main:app --reload
+```
+
+4. (deta登録してる人用)detaにデプロイする
+```
+deta deploy
+```
