@@ -32,7 +32,7 @@ git pull origin main
 
 2. ライブラリをインストールする
 ```
-python -m pip install requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 3. uviconでfastapiを実行する
