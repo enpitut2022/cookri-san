@@ -44,3 +44,29 @@ uvicorn main:app --reload
 ```
 deta deploy
 ```
+
+## ドライバー用
+- 1-4はドライバのみ
+- 4が終わった後、5以降は全員がやる
+
+1. [Pull Request](https://github.com/enpitut2022/cookri-san/pulls)を確認する
+2. 自分の環境でデバッグしたいプルリクを確認して、以下コマンドを実行
+```
+git pull 'ブランチ名'
+git switch 'ブランチ名'
+```
+3. FastAPIを実行してテストする
+```
+uvicorn main:app --reload
+```
+
+4. テストをして問題がなかった場合、該当のプルリクのページを開いてリクエストをマージする
+
+5. 自分の環境でmainブランチに戻る
+```
+git switch main
+```
+6. リモートリポジトリから最新のコードをpullする
+```
+git pull origin main
+```
