@@ -1,61 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Cookりさん</title>
+        <title>Cookりさん｜{{ing}}の検索結果</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1 class="text-primary"></h1>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col col-12 col-xl-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://www.kikkoman.co.jp/homecook/search/recipe/img/00052094.jpg" alt="料理サムネイル">
-                            <div class="card-body">
-                                <a href="https://www.kikkoman.co.jp/homecook/search/recipe/00052094/index.html">
-                                    <h3 class="card-title">豚なすピーマンの甘辛みそ炒め</h3>
-                                </a><br>
-                                    <a class="badge bg-secondary me-1">なす</a>
-                                    <a class="badge bg-secondary me-1">豚こま肉</a>
-                                    <a class="badge bg-secondary me-1">ピーマン</a>
-                                    <a class="badge bg-secondary me-1">おろしにんにく</a>
+        <h1 class="bg-danger"><a href="/" class="text-decoration-none text-white">Cookりさん</a></h1>
+        {% if recipe | length > 0 %}
+        <h2>{{ing}}の検索結果</h2>
+        {% else %}
+        <h2>{{ing}}のレシピは見つかりませんでした</h2>
+        {% endif %}
+            <div class="container">
+                <div class="row">
+                    {% for i in recipe %}
+                        <div class="col col-12 col-xl-4">
+                            <div class="card">
+                                <img class="card-img-top" src={{i.thumbnail_url}} alt="料理サムネイル">
+                                <div class="card-body">
+                                    <a href={{i.url}}>
+                                        <h3 class="card-title">{{i.title}}</h3>
+                                    </a><br>
+                                        {% for j in i.tags %}
+                                        <a class="badge bg-secondary me-1">{{j}}</a>
+                                        {% endfor %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col col-12 col-xl-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://production-orp.s3.amazonaws.com/uploads/recipes/image/0000300098/20140709111512_w300hf.jpg" alt="料理サムネイル">
-                            <div class="card-body">
-                                <a href="https://www.orangepage.net/recipes/detail_300098">
-                                    <h3 class="card-title">豚ときゅうりの香味炒め</h3>
-                                </a><br>
-                                    <a class="badge bg-secondary me-1">豚バラ肉</a>
-                                    <a class="badge bg-secondary me-1">きゅうり</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-12 col-xl-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://www.kikkoman.co.jp/homecook/search/recipe/img/00001929.jpg" alt="料理サムネイル">
-                            <div class="card-body">
-                                <a href="https://www.kikkoman.co.jp/homecook/search/recipe/00001929/index.html">
-                                    <h3 class="card-title">鶏じゃが</h3>
-                                </a><br>
-                                    <a class="badge bg-secondary me-1">鶏もも肉</a>
-                                    <a class="badge bg-secondary me-1">じゃがいも</a>
-                                    <a class="badge bg-secondary me-1">玉ねぎ</a>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-
-
 
     </body>
 </html>
-
-
-}

@@ -21,4 +21,4 @@ async def result(request:Request, ing:str):
     for i in json_load:
         if ing in i["tags"]:
             recipe.append(i)
-    return templates.TemplateResponse("result3.html", {"request":request, "ing":ing, "recipe":recipe})
+    return templates.TemplateResponse("result.html", {"request":request, "ing":ing, "recipe":recipe})
