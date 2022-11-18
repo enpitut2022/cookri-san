@@ -19,11 +19,9 @@ async def result(request:Request, ing:Set[str] = Query(default=None)):
     json_open = open('fixture/recipe.json', mode = 'r', encoding = 'UTF-8')
     json_load = json.load(json_open)
     recipe = []
-    urls = []
+    #urls = []
     for i in json_load:
-        for item in ing:
-            if item in i["tags"] and not(i["url"] in urls):
-                recipe.append(i)
-                urls.append(i["url"])
+        if set(i["tags"]) & ing == ing:
+            recipe.append(i)
     
     return templates.TemplateResponse("result.html", {"request":request, "ing":ing, "recipe":recipe})
