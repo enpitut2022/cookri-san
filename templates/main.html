@@ -1,31 +1,67 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Some HTML in here</title>
+        <title>Cookりさん｜トップページ</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1 class="text-primary">ここがCookりさんのページです！</h1>
+        <h1 class="bg-danger text-white">Cookりさん</h1>
         <h2>タグ一覧</h2>
-        <h3>肉</h3>
-        <ul>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=鶏もも肉">鶏もも肉</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=豚バラ肉">豚バラ肉</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=豚こま肉">豚こま肉</a></li>
-        </ul>
-        <h3>野菜</h3>
-        <ul>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=ピーマン">ピーマン</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=なす">なす</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=じゃがいも">じゃがいも</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=きゅうり">きゅうり</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=玉ねぎ">玉ねぎ</a></li>
-        </ul>
-        <h3>調味料</h3>
-        <ul>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=おろしにんにく">おろしにんにく</a></li>
-            <li><a class="badge bg-secondary me-1" href="/result?ing=醤油">醤油</a></li>
-        </ul>
+        <form action="/result" method="GET">
+            <div class="input-group">
+                <h3>肉</h3>
+                <div class="input-group">
+                    <input type="checkbox"name="ing" class="form-check-input" id="鶏もも肉" value="鶏もも肉" />
+                    <label for="鶏もも肉" class="form-label">鶏もも肉</label>
+                </div>
+                <div class="input-group">
+                    <input type="checkbox" name="ing" id="豚バラ肉" value="豚バラ肉" />
+                    <label for="豚バラ肉">豚バラ肉</label>
+                </div>
+                <div class="input-group">
+                    <input type="checkbox"name="ing" id="豚こま肉" value="豚こま肉" />
+                    <label for="豚こま肉">豚こま肉</label>
+                </div>
+            </div>
+        
+        <div class="input-group">
+            <h3>野菜</h3>
+            <div class="input-group">
+                <input type="checkbox"name="ing" class="form-check-input" id="ピーマン" value="ピーマン" />
+                <label for="ピーマン" class="form-label">ピーマン</label>
+            </div>
+            <div class="input-group">
+                <input type="checkbox"name="ing" class="form-check-input" id="なす" value="なす" />
+                <label for="なす" class="form-label">なす</label>
+            </div>
+            <div class="input-group">
+                <input type="checkbox"name="ing" class="form-check-input" id="じゃがいも" value="じゃがいも" />
+                <label for="じゃがいも" class="form-label">じゃがいも</label>
+            </div>
+            <div class="input-group">
+                <input type="checkbox"name="ing" class="form-check-input" id="きゅうり" value="きゅうり" />
+                <label for="きゅうり" class="form-label">きゅうり</label>
+            </div>
+            <div class="input-group">
+                <input type="checkbox"name="ing" class="form-check-input" id="玉ねぎ" value="玉ねぎ" />
+                <label for="玉ねぎ" class="form-label">玉ねぎ</label>
+            </div>
+        </div>
+            
+        <div class="input-group">
+            <h3>調味料</h3>
+            <div class="input-group">
+                <input type="checkbox" name="ing" id="おろしにんにく" value="おろしにんにく">
+                <label for="おろしにんにく">おろしにんにく</label>
+            </div>
+            <div class="input-group">
+                <input type="checkbox" name="ing" id="醤油" value="醤油">
+                <label for="醤油">醤油</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
     </body>
 </html>
