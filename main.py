@@ -15,7 +15,7 @@ async def root(request:Request):
     return templates.TemplateResponse("main.html", {"request":request})
 
 @app.get("/result/", response_class=HTMLResponse)
-async def result(request:Request, ing:Union[Set[str], None] = Query(default=None)):
+async def result(request:Request, ing:Set[str] = Query(default=None)):
     json_open = open('fixture/recipe.json', mode = 'r', encoding = 'UTF-8')
     json_load = json.load(json_open)
     recipe = []
