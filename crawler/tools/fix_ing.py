@@ -4,7 +4,7 @@ import wanakana
 json_open = open('fixture/recipe2.json', mode = 'r', encoding = 'UTF-8')
 json_data = json.load(json_open)
 json_open.close()
-with open("ing_rule.txt", encoding="utf-8", mode="r") as f:
+with open("crawler/tools/ing_rule.txt", encoding="utf-8", mode="r") as f:
     texts = f.readlines()
 texts.sort(key=len)
 texts.reverse()
