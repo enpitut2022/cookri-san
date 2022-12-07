@@ -16,7 +16,7 @@ async def root(request:Request):
 
 @app.get("/result/", response_class=HTMLResponse)
 async def result(request:Request, ing:Set[str] = Query(default=None)):
-    json_open = open('fixture/recipe.json', mode = 'r', encoding = 'UTF-8')
+    json_open = open('fixture/recipe2_fix.json', mode = 'r', encoding = 'UTF-8')
     json_load = json.load(json_open)
     recipe = []
     #urls = []
