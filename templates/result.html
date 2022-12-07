@@ -63,6 +63,7 @@
             <a href="/">検索画面に戻る</a>
             </div>
         {% else %}
+        <div class="container">
             <h2>
             {% for item in ing %}
             {{item}}
@@ -70,60 +71,68 @@
             のレシピは見つかりませんでした
             </h2>
             <form action="/result" method="GET">
-                <div class="input-group">
-                    <h3>肉</h3>
-                    <div class="input-group">
-                        <input type="checkbox"name="ing" class="btn-check" id="鶏もも肉" value="鶏もも肉" autocomplete="off"/>
-                        <label for="鶏もも肉" class="btn btn-outline-primary">鶏もも肉</label>
+                <div class="row">
+                    <div class = "col col-12">
+                        <h3>肉</h3>
+                        <div class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3">
+                        <div class="p-2 bd-highlight">
+                            <input type="checkbox"name="ing" class="btn-check" id="鶏もも肉" value="鶏もも肉" autocomplete="off"/>
+                            <label for="鶏もも肉" class="btn btn-outline-primary">鶏もも肉</label>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <input type="checkbox" name="ing" class="btn-check" id="豚バラ肉" value="豚バラ肉" autocomplete="off"/>
+                            <label for="豚バラ肉"  class="btn btn-outline-primary">豚バラ肉</label>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <input type="checkbox"name="ing" class="btn-check" id="豚こま肉" value="豚こま肉" autocomplete="off"/>
+                            <label for="豚こま肉" class="btn btn-outline-primary">豚こま肉</label>
+                        </div>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <input type="checkbox" name="ing" class="btn-check" id="豚バラ肉" value="豚バラ肉" autocomplete="off"/>
-                        <label for="豚バラ肉"  class="btn btn-outline-primary">豚バラ肉</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="checkbox"name="ing" class="btn-check" id="豚こま肉" value="豚こま肉" autocomplete="off"/>
-                        <label for="豚こま肉" class="btn btn-outline-primary">豚こま肉</label>
-                    </div>
-                </div>
             
-            <div class="input-group">
-                <h3>野菜</h3>
-                <div class="input-group">
-                    <input type="checkbox"name="ing" class="btn-check" id="ピーマン" value="ピーマン" autocomplete="off"/>
-                    <label for="ピーマン" class="btn btn-outline-primary">ピーマン</label>
-                </div>
-                <div class="input-group">
-                    <input type="checkbox"name="ing" class="btn-check" id="なす" value="なす" autocomplete="off"/>
-                    <label for="なす" class="btn btn-outline-primary">なす</label>
-                </div>
-                <div class="input-group">
-                    <input type="checkbox"name="ing" class="btn-check" id="じゃがいも" value="じゃがいも"  autocomplete="off"/>
-                    <label for="じゃがいも" class="btn btn-outline-primary">じゃがいも</label>
-                </div>
-                <div class="input-group">
-                    <input type="checkbox"name="ing" class="btn-check" id="きゅうり" value="きゅうり" autocomplete="off" />
-                    <label for="きゅうり" class="btn btn-outline-primary">きゅうり</label>
-                </div>
-                <div class="input-group">
-                    <input type="checkbox"name="ing" class="btn-check" id="玉ねぎ" value="玉ねぎ" autocomplete="off" />
-                    <label for="玉ねぎ" class="btn btn-outline-primary">玉ねぎ</label>
-                </div>
-            </div>
+                    <div class="col col-12">
+                        <h3>野菜</h3>
+                        <div class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3">
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox"name="ing" class="btn-check" id="ピーマン" value="ピーマン" autocomplete="off"/>
+                                <label for="ピーマン" class="btn btn-outline-primary">ピーマン</label>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox"name="ing" class="btn-check" id="なす" value="なす" autocomplete="off"/>
+                                <label for="なす" class="btn btn-outline-primary">なす</label>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox"name="ing" class="btn-check" id="じゃがいも" value="じゃがいも"  autocomplete="off"/>
+                                <label for="じゃがいも" class="btn btn-outline-primary">じゃがいも</label>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox"name="ing" class="btn-check" id="きゅうり" value="きゅうり" autocomplete="off" />
+                                <label for="きゅうり" class="btn btn-outline-primary">きゅうり</label>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox"name="ing" class="btn-check" id="玉ねぎ" value="玉ねぎ" autocomplete="off" />
+                                <label for="玉ねぎ" class="btn btn-outline-primary">玉ねぎ</label>
+                            </div>
+                        </div>
+                    </div>
                 
-            <div class="input-group">
-                <h3>調味料</h3>
-                <div class="input-group">
-                    <input type="checkbox" name="ing" class="btn-check" id="おろしにんにく" value="おろしにんにく" autocomplete="off">
-                    <label for="おろしにんにく" class="btn btn-outline-primary">おろしにんにく</label>
+                    <div class="col col-12">
+                        <h3>調味料</h3>
+                        <div class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3">
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox" name="ing" class="btn-check" id="おろしにんにく" value="おろしにんにく" autocomplete="off">
+                                <label for="おろしにんにく" class="btn btn-outline-primary">おろしにんにく</label>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <input type="checkbox" name="ing"  class="btn-check"id="醤油" value="醤油" autocomplete="off">
+                                <label for="醤油" class="btn btn-outline-primary">醤油</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="checkbox" name="ing"  class="btn-check"id="醤油" value="醤油" autocomplete="off">
-                    <label for="醤油" class="btn btn-outline-primary">醤油</label>
-                </div>
-            </div>
-    
-            <button type="submit" class="btn btn-danger">Submit</button>
+            <button type="submit" class="btn btn-danger">検索</button>
         </form>
+        </div>
         {% endif %}
     </body>
 </html>
