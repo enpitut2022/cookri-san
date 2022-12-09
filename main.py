@@ -15,13 +15,17 @@ async def root(request:Request):
     return templates.TemplateResponse("main.html", {"request":request})
 
 @app.get("/result/", response_class=HTMLResponse)
-async def result(request:Request, ing:Set[str] = Query(default=None)):
+async def result(request:Request, ing:Set[str] = Query(default=None), search_not:Set[str] = Query(default=None)):
     json_open = open('fixture/recipe2.json', mode = 'r', encoding = 'UTF-8')
     json_load = json.load(json_open)
     recipe = []
     #urls = []
     for i in json_load:
-        if set(i["tags"]) & ing == ing:
-            recipe.append(i)
+        if search_not is not None:
+            if set(i["tags"]) & ing == ing and set(i["tags"]) & search_not == set():
+                recipe.append(i)
+        else:
+            if set(i["tags"]) & ing == ing:
+                recipe.append(i)
     
     return templates.TemplateResponse("result.html", {"request":request, "ing":ing, "recipe":recipe})
