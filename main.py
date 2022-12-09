@@ -15,7 +15,7 @@ async def root(request:Request):
     return templates.TemplateResponse("main.html", {"request":request})
 
 @app.get("/result/", response_class=HTMLResponse)
-async def result(request:Request, ing:Set[str] = Query(default=set()), search_not:Set[str] = Query(default=None)):
+async def result(request:Request, ing:Set[str] = Query(default=set()), search_not:Set[str] = Query(default=set())):
     json_open = open('fixture/recipe2.json', mode = 'r', encoding = 'UTF-8')
     json_load = json.load(json_open)
     recipe = []
@@ -25,7 +25,7 @@ async def result(request:Request, ing:Set[str] = Query(default=set()), search_no
     if len(ing) == 1:
         ing = set(list(ing)[0].split())
     for i in json_load:
-        if search_not is not None:
+        if len(search_not) != 0:
             query_not = list(search_not)[0].split()
             query_not = set(query_not)
             if set(i["tags"]) & ing == ing and set(i["tags"]) & query_not == set():
