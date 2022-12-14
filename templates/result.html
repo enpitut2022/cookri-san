@@ -30,14 +30,20 @@
                 }
               } catch (ex) {}
             }
-            </script>
+        </script>
+        <script>
+            function tag_toggle_for_and_search(query) {
+                let and_search_input_elem = document.getElementById("and-search-input");
+                and_search_input_elem.value = and_search_input_elem.value + " " + query;
+            }
+        </script>
     </head>
     <body>
         <h1 class="bg-danger"><a href="/" class="text-decoration-none text-white">Cookりさん</a></h1>
         {% if recipe | length > 0 %}
 
-        <form action="/result" method="GET">
-            <input type="text" name="ing" placeholder="消費したい食材を入力" value="{{ing_s}}">
+        <form id="search-form" action="/result" method="GET">
+            <input id="and-search-input" type="text" name="ing" placeholder="消費したい食材を入力" value="{{ing_s}}">
             <input type="text" name="search_not" placeholder="省きたい食材を入力" value="{{not_s}}">
             <button type="submit" class="btn btn-danger">検索</button>
         </form>    
@@ -59,7 +65,7 @@
                                         <h3 class="card-title">{{i.title}}</h3>
                                     </a><br>
                                         {% for j in i.tags %}
-                                        <a class="badge bg-secondary me-1">{{j}}</a>
+                                            <a class="badge bg-secondary me-1" onclick="tag_toggle_for_and_search('{{j}}')">{{j}}</a>
                                         {% endfor %}
                                 </div>
                             </div>
