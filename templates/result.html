@@ -33,9 +33,26 @@
             }
         </script>
         <script>
+            var set = new Set();
             function tag_toggle_for_and_search(query) {
                 let and_search_input_elem = document.getElementById("and-search-input");
-                and_search_input_elem.value = and_search_input_elem.value + " " + query;
+                if(set.has(query)){
+                    set.delete(query);
+                }else{
+                    set.add(query);
+                }
+                var flag = true;
+                for(var value of set){
+                    if(flag==true){
+                        and_search_input_elem.value = value;
+                        flag = false;
+                    }else{
+                        and_search_input_elem.value = and_search_input_elem.value + " " + value;
+                    }
+                }
+                if(set.size==0){
+                    and_search_input_elem.value = "";
+                }
             }
             function tag_toggle_for_not_search(query) {
                 let and_search_input_elem = document.getElementById("not-search-input");
@@ -55,6 +72,10 @@
             <h2>
             {% for item in ing %}
             {{item}}
+            <script>
+            var x = {{item|tojson}};
+            set.add(x)
+            </script>
             {% endfor %}
             の検索結果
             </h2>
