@@ -36,4 +36,4 @@ async def result(request:Request, ing:Set[str] = Query(default=set()), search_no
                 recipe.append(i)
     ing_s = " ".join(list(ing))
     not_s = " ".join(list(search_not))
-    return templates.TemplateResponse("result.html", {"request":request, "ing":ing, "recipe":recipe, "ing_s":ing_s, "not_s": not_s, "search_not": list(search_not)})
+    return templates.TemplateResponse("result.html", {"request":request, "ing":list(ing), "recipe":recipe, "ing_s":ing_s, "not_s": not_s, "search_not": list(search_not)})

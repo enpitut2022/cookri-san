@@ -33,7 +33,7 @@
             }
         </script>
         <script>
-            var set = new Set();
+            var set = new Set({{ing | tojson}});
             var not_set = new Set({{search_not | tojson}})
             function tag_toggle_for_and_search(query) {
                 let and_search_input_elem = document.getElementById("and-search-input");
@@ -91,10 +91,6 @@
             <h2>
             {% for item in ing %}
             {{item}}
-            <script>
-            var ing = {{item|tojson}};
-            set.add(x)
-            </script>
             {% endfor %}
             の検索結果
             </h2>
