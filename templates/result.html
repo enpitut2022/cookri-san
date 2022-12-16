@@ -34,7 +34,7 @@
         </script>
         <script>
             var set = new Set();
-            var not_set = new Set()
+            var not_set = new Set({{search_not | tojson}})
             function tag_toggle_for_and_search(query) {
                 let and_search_input_elem = document.getElementById("and-search-input");
                 if(set.has(query)){
@@ -92,7 +92,7 @@
             {% for item in ing %}
             {{item}}
             <script>
-            var x = {{item|tojson}};
+            var ing = {{item|tojson}};
             set.add(x)
             </script>
             {% endfor %}
