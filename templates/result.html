@@ -1,196 +1,340 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Cookりさん｜
-            {% for item in ing %}
-            {{item}}
-            {% endfor %}
-            の検索結果
-        </title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script>
-            var touch = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-            
-            if(touch) {
-              try {
-                for (var si in document.styleSheets) {
-                  var styleSheet = document.styleSheets[si];
-                  if (!styleSheet.rules) continue;
-            
-                  for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
-                    if (!styleSheet.rules[ri].selectorText) continue;
-            
-                    if (styleSheet.rules[ri].selectorText.match(':hover')) {
-                      styleSheet.deleteRule(ri);
-                    }
-                  }
-                }
-              } catch (ex) {}
-            }
-        </script>
-        <script>
-            var set = new Set({{ing | tojson}});
-            var not_set = new Set({{search_not | tojson}})
-            function tag_toggle_for_and_search(query) {
-                let and_search_input_elem = document.getElementById("and-search-input");
-                if(set.has(query)){
-                    set.delete(query);
-                }else{
-                    set.add(query);
-                }
-                var flag = true;
-                for(var value of set){
-                    if(flag==true){
-                        and_search_input_elem.value = value;
-                        flag = false;
-                    }else{
-                        and_search_input_elem.value = and_search_input_elem.value + " " + value;
-                    }
-                }
-                if(set.size==0){
-                    and_search_input_elem.value = "";
-                }
-            }
-            function tag_toggle_for_not_search(query) {
-                let and_search_input_elem = document.getElementById("not-search-input");
-                if(not_set.has(query)){
-                    not_set.delete(query);
-                }else{
-                    not_set.add(query)
-                }
-                var flag = true;
+  <head>
+    <title>
+      Cookりさん｜ {% for item in ing %} {{item}} {% endfor %} の検索結果
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      var touch =
+        "ontouchstart" in document.documentElement ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0;
 
-                for(var value of not_set){
-                    if(flag==true){
-                        and_search_input_elem.value = value;
-                        flag = false;
-                    }else{
-                        and_search_input_elem.value = and_search_input_elem.value + " " + value;
-                    }
-                }
-                if(not_set.size==0){
-                    and_search_input_elem.value = "";
-                }
-            
-            }
-        </script>
-    </head>
-    <body>
-        <h1 class="bg-danger"><a href="/" class="text-decoration-none text-white">Cookりさん</a></h1>
-        {% if recipe | length > 0 %}
+      if (touch) {
+        try {
+          for (var si in document.styleSheets) {
+            var styleSheet = document.styleSheets[si];
+            if (!styleSheet.rules) continue;
 
-        <div class="sticky-top bg-white">
-        <form id="search-form" action="/result" method="GET">
-            <input id="and-search-input" type="text" name="ing" placeholder="消費したい食材を入力" value="{{ing_s}}">
-            <input id="not-search-input" type="text" name="search_not" placeholder="省きたい食材を入力" value="{{not_s}}">
-            <button type="submit" class="btn btn-danger">検索</button>
-        </form>  
-        </div>  
-            <h2>
-            {% for item in ing %}
-            {{item}}
-            {% endfor %}
-            の検索結果
-            </h2>
-            <a href="/">検索画面に戻る</a>
-            <div class="container">
-                <div class="row">
-                    {% for i in recipe %}
-                        <div class="col col-12 col-xl-4">
-                            <div class="card">
-                                <img class="card-img-top" src={{i.thumbnail_url}} alt="料理サムネイル">
-                                <div class="card-body">
-                                    <a href={{i.url}}>
-                                        <h3 class="card-title">{{i.title}}</h3>
-                                    </a><br>
-                                        {% for j in i.tags %}
-                                            <div class = "btn-group" role = "group">
-                                            <button class="btn btn-secondary" onclick="tag_toggle_for_and_search('{{j}}')">{{j}}</button>
-                                            <button class="btn btn-danger text-white" onclick="tag_toggle_for_not_search('{{j}}')"><i class="bi bi-dash-circle"></i></button>
-                                            </div>
-                                        {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            <a href="/">検索画面に戻る</a>
+            for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+              if (!styleSheet.rules[ri].selectorText) continue;
+
+              if (styleSheet.rules[ri].selectorText.match(":hover")) {
+                styleSheet.deleteRule(ri);
+              }
+            }
+          }
+        } catch (ex) {}
+      }
+    </script>
+
+  </head>
+  <body>
+    <h1 class="bg-danger">
+      <a href="/" class="text-decoration-none text-white">Cookりさん</a>
+    </h1>
+    {% if recipe | length > 0 %}
+
+    <div class="sticky-top bg-white">
+      <div id="items"></div>
+      <form id="search-form" action="/result" method="GET">
+        <input
+          id="and-search-input"
+          type="hidden"
+          name="ing"
+          placeholder="消費したい食材を入力"
+          value="{{ing_s}}"
+        />
+        <input
+          id="not-search-input"
+          type="hidden"
+          name="search_not"
+          placeholder="省きたい食材を入力"
+          value="{{not_s}}"
+        />
+        <button type="submit" class="btn btn-danger">検索</button>
+      </form>
+    </div>
+    <h2>{% for item in ing %} {{item}} {% endfor %} の検索結果</h2>
+    <a href="/">検索画面に戻る</a>
+    <div class="container">
+      <div class="row">
+        {% for i in recipe %}
+        <div class="col col-12 col-xl-4">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="{{i.thumbnail_url}}"
+              alt="料理サムネイル"
+            />
+            <div class="card-body">
+              <a href="{{i.url}}">
+                <h3 class="card-title">{{i.title}}</h3> </a
+              ><br />
+              {% for j in i.tags %}
+              <div class="btn-group" role="group">
+                <button
+                  class="btn btn-secondary"
+                  onclick="tag_toggle_for_and_search('{{j}}')"
+                >
+                  {{j}}
+                </button>
+                <button
+                  class="btn btn-danger text-white"
+                  onclick="tag_toggle_for_not_search('{{j}}')"
+                >
+                  <i class="bi bi-dash-circle"></i>
+                </button>
+              </div>
+              {% endfor %}
             </div>
-        {% else %}
-        <div class="container">
-            <h2>
-            {% for item in ing %}
-            {{item}}
-            {% endfor %}
-            のレシピは見つかりませんでした
-            </h2>
-            <form action="/result" method="GET">
-                <div class="row">
-                    <div class = "col col-12">
-                        <h3>肉</h3>
-                        <div class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3">
-                        <div class="p-2 bd-highlight">
-                            <input type="checkbox"name="ing" class="btn-check" id="鶏もも肉" value="鶏もも肉" autocomplete="off"/>
-                            <label for="鶏もも肉" class="btn btn-outline-primary">鶏もも肉</label>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            <input type="checkbox" name="ing" class="btn-check" id="豚バラ肉" value="豚バラ肉" autocomplete="off"/>
-                            <label for="豚バラ肉"  class="btn btn-outline-primary">豚バラ肉</label>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            <input type="checkbox"name="ing" class="btn-check" id="豚こま肉" value="豚こま肉" autocomplete="off"/>
-                            <label for="豚こま肉" class="btn btn-outline-primary">豚こま肉</label>
-                        </div>
-                        </div>
-                    </div>
-            
-                    <div class="col col-12">
-                        <h3>野菜</h3>
-                        <div class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3">
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox"name="ing" class="btn-check" id="ピーマン" value="ピーマン" autocomplete="off"/>
-                                <label for="ピーマン" class="btn btn-outline-primary">ピーマン</label>
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox"name="ing" class="btn-check" id="なす" value="なす" autocomplete="off"/>
-                                <label for="なす" class="btn btn-outline-primary">なす</label>
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox"name="ing" class="btn-check" id="じゃがいも" value="じゃがいも"  autocomplete="off"/>
-                                <label for="じゃがいも" class="btn btn-outline-primary">じゃがいも</label>
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox"name="ing" class="btn-check" id="きゅうり" value="きゅうり" autocomplete="off" />
-                                <label for="きゅうり" class="btn btn-outline-primary">きゅうり</label>
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox"name="ing" class="btn-check" id="玉ねぎ" value="玉ねぎ" autocomplete="off" />
-                                <label for="玉ねぎ" class="btn btn-outline-primary">玉ねぎ</label>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="col col-12">
-                        <h3>調味料</h3>
-                        <div class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3">
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox" name="ing" class="btn-check" id="おろしにんにく" value="おろしにんにく" autocomplete="off">
-                                <label for="おろしにんにく" class="btn btn-outline-primary">おろしにんにく</label>
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <input type="checkbox" name="ing"  class="btn-check"id="醤油" value="醤油" autocomplete="off">
-                                <label for="醤油" class="btn btn-outline-primary">醤油</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <button type="submit" class="btn btn-danger">検索</button>
-        </form>
+          </div>
         </div>
-        {% endif %}
-    </body>
+        {% endfor %}
+      </div>
+      <a href="/">検索画面に戻る</a>
+    </div>
+    {% else %}
+    <div class="container">
+      <h2>
+        {% for item in ing %} {{item}} {% endfor %}
+        のレシピは見つかりませんでした
+      </h2>
+      <form action="/result" method="GET">
+        <div class="row">
+          <div class="col col-12">
+            <h3>肉</h3>
+            <div
+              class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="鶏もも肉"
+                  value="鶏もも肉"
+                  autocomplete="off"
+                />
+                <label for="鶏もも肉" class="btn btn-outline-primary"
+                  >鶏もも肉</label
+                >
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="豚バラ肉"
+                  value="豚バラ肉"
+                  autocomplete="off"
+                />
+                <label for="豚バラ肉" class="btn btn-outline-primary"
+                  >豚バラ肉</label
+                >
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="豚こま肉"
+                  value="豚こま肉"
+                  autocomplete="off"
+                />
+                <label for="豚こま肉" class="btn btn-outline-primary"
+                  >豚こま肉</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-12">
+            <h3>野菜</h3>
+            <div
+              class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="ピーマン"
+                  value="ピーマン"
+                  autocomplete="off"
+                />
+                <label for="ピーマン" class="btn btn-outline-primary"
+                  >ピーマン</label
+                >
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="なす"
+                  value="なす"
+                  autocomplete="off"
+                />
+                <label for="なす" class="btn btn-outline-primary">なす</label>
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="じゃがいも"
+                  value="じゃがいも"
+                  autocomplete="off"
+                />
+                <label for="じゃがいも" class="btn btn-outline-primary"
+                  >じゃがいも</label
+                >
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="きゅうり"
+                  value="きゅうり"
+                  autocomplete="off"
+                />
+                <label for="きゅうり" class="btn btn-outline-primary"
+                  >きゅうり</label
+                >
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="玉ねぎ"
+                  value="玉ねぎ"
+                  autocomplete="off"
+                />
+                <label for="玉ねぎ" class="btn btn-outline-primary"
+                  >玉ねぎ</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-12">
+            <h3>調味料</h3>
+            <div
+              class="d-flex flex-wrap justify-content-start flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="おろしにんにく"
+                  value="おろしにんにく"
+                  autocomplete="off"
+                />
+                <label for="おろしにんにく" class="btn btn-outline-primary"
+                  >おろしにんにく</label
+                >
+              </div>
+              <div class="p-2 bd-highlight">
+                <input
+                  type="checkbox"
+                  name="ing"
+                  class="btn-check"
+                  id="醤油"
+                  value="醤油"
+                  autocomplete="off"
+                />
+                <label for="醤油" class="btn btn-outline-primary">醤油</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-danger">検索</button>
+      </form>
+    </div>
+    {% endif %}
+    <script>
+        var set = new Set({{ing | tojson}});
+        var not_set = new Set({{search_not | tojson}});
+        var tags_elem = document.getElementById("items");
+        for (var tag of set) {
+          var btn = document.createElement("button");
+          btn.setAttribute("class", "btn btn-outline-danger");
+          btn.setAttribute("id", tag)
+          btn.textContent = tag;
+          tags_elem.appendChild(btn);
+        }
+        function tag_toggle_for_and_search(query) {
+            let and_search_input_elem = document.getElementById("and-search-input");
+            var tags_elem = document.getElementById("items");
+            if(set.has(query)){
+                set.delete(query);
+            }else{
+                set.add(query);
+            }
+            var flag = true;
+            for(var value of set){
+                if(flag==true){
+                    and_search_input_elem.value = value;
+                    flag = false;
+                }else{
+                    and_search_input_elem.value = and_search_input_elem.value + " " + value;
+                }
+            }
+            if(set.size==0){
+                and_search_input_elem.value = "";
+            }
+            if (document.getElementById(query) == null){
+
+                btn.setAttribute("class", "btn btn-outline-danger");
+                btn.setAttribute("id", query)
+                btn.textContent = query;
+                tags_elem.appendChild(btn);
+            }else{
+                tags_elem.removeChild(document.getElementById(query));
+            }
+        }
+        function tag_toggle_for_not_search(query) {
+            let and_search_input_elem = document.getElementById("not-search-input");
+            if(not_set.has(query)){
+                not_set.delete(query);
+            }else{
+                not_set.add(query)
+            }
+            var flag = true;
+  
+            for(var value of not_set){
+                if(flag==true){
+                    and_search_input_elem.value = value;
+                    flag = false;
+                }else{
+                    and_search_input_elem.value = and_search_input_elem.value + " " + value;
+                }
+            }
+            if(not_set.size==0){
+                and_search_input_elem.value = "";
+            }
+  
+        }
+      </script>
+  </body>
 </html>
