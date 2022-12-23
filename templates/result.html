@@ -83,11 +83,13 @@
         <h1 class="bg-danger"><a href="/" class="text-decoration-none text-white">Cookりさん</a></h1>
         {% if recipe | length > 0 %}
 
+        <div class="sticky-top bg-white">
         <form id="search-form" action="/result" method="GET">
             <input id="and-search-input" type="text" name="ing" placeholder="消費したい食材を入力" value="{{ing_s}}">
             <input id="not-search-input" type="text" name="search_not" placeholder="省きたい食材を入力" value="{{not_s}}">
             <button type="submit" class="btn btn-danger">検索</button>
-        </form>    
+        </form>  
+        </div>  
             <h2>
             {% for item in ing %}
             {{item}}
