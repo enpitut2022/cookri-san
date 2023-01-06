@@ -19,6 +19,8 @@ async def result(request:Request, ing:Set[str] = Query(default=set()), search_no
     json_open = open('fixture/recipe2.json', mode = 'r', encoding = 'UTF-8')
     json_load = json.load(json_open)
     recipe = []
+    recipe_or = []
+
     #urls = []
     # ing = ["鶏もも肉", "ピーマン"]　⇚　main.htmlで2つ以上入力したとき
     # ing = ["鶏もも肉 ピーマン"]　⇚ result.htmlで2つ入力したとき
@@ -30,10 +32,16 @@ async def result(request:Request, ing:Set[str] = Query(default=set()), search_no
             query_not = set(query_not)
             if set(i["tags"]) & ing == ing and set(i["tags"]) & query_not == set():
                 recipe.append(i)
+            if ing-set(i["tags"]) != ing and set(i["tags"]) & query_not == set():
+                recipe_or.append(i)
         else:
             search_not = set()
             if set(i["tags"]) & ing == ing:
                 recipe.append(i)
+            if ing-set(i["tags"]) != ing and set(i["tags"]):
+                recipe_or.append(i)
+
+    recipe.extend(recipe_or)
     ing_s = " ".join(list(ing))
     not_s = " ".join(list(search_not))
-    return templates.TemplateResponse("result.html", {"request":request, "ing":list(ing), "recipe":recipe, "ing_s":ing_s, "not_s": not_s, "search_not": list(search_not)})
+    return templates.TemplateResponse("result.html", {"request":request, "ing":list(ing), "recipe":recipe, "recipe_or":recipe_or, "ing_s":ing_s, "not_s": not_s, "search_not": list(search_not)})
