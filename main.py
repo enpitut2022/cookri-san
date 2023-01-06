@@ -41,7 +41,7 @@ async def result(request:Request, ing:Set[str] = Query(default=set()), search_no
             if ing-set(i["tags"]) != ing and set(i["tags"]):
                 recipe_or.append(i)
 
-    recipe.extend(recipe_or)
+    #recipe.extend(recipe_or)
     ing_s = " ".join(list(ing))
     not_s = " ".join(list(search_not))
     return templates.TemplateResponse("result.html", {"request":request, "ing":list(ing), "recipe":recipe, "recipe_or":recipe_or, "ing_s":ing_s, "not_s": not_s, "search_not": list(search_not)})
