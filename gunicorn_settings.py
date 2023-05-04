@@ -1,10 +1,10 @@
 import os
 
 # UNIXドメインソケット
-socket_path = "unix:/tmp/asgi.sock"
-# socket_path = "0.0.0.0:8000"
+# socket_path = "unix:/tmp/asgi.sock"
+socket_path = "0.0.0.0:8080"
 
-port = "8000"
+port = "8080"
 bind = socket_path
 
 
